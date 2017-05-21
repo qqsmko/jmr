@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jmr.IDao.InstitutionsMapper">
+  <resultMap id="BaseResultMap" type="com.jmr.model.Institutions">
+    <id column="institutionsid" jdbcType="INTEGER" property="institutionsid" />
+    <result column="regionid" jdbcType="INTEGER" property="regionid" />
+    <result column="institutionsname" jdbcType="VARCHAR" property="institutionsname" />
+    <result column="institutionscode" jdbcType="VARCHAR" property="institutionscode" />
+    <result column="responsible" jdbcType="VARCHAR" property="responsible" />
+    <result column="telephone" jdbcType="VARCHAR" property="telephone" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="employeecount" jdbcType="INTEGER" property="employeecount" />
+    <result column="applydate" jdbcType="TIMESTAMP" property="applydate" />
+    <result column="approvaldate" jdbcType="TIMESTAMP" property="approvaldate" />
+    <result column="state" jdbcType="INTEGER" property="state" />
+    <result column="applyemail" jdbcType="VARCHAR" property="applyemail" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    institutionsid, regionid, institutionsname, institutionscode, responsible, telephone, 
+    address, employeecount, applydate, approvaldate, state, applyemail
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_institutions
+    where institutionsid = #{institutionsid,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_institutions
+    where isdeleted = 0
+  </select>
+  <select id="selectByPage" parameterType="int" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_institutions
+    where isdeleted = 0
+    <if test="start!=null and length!=null">
+    	limit #{length} offset #{start}
+    </if>
+  </select>
+  <select id="selectCount" resultType="int">
+    select count(*)
+    from t_institutions
+    where isdeleted = 0
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_institutions
+    where institutionsid = #{institutionsid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.jmr.model.Institutions">
+    insert into t_institutions (institutionsid, regionid, institutionsname, 
+      institutionscode, responsible, telephone, 
+      address, employeecount, applydate, 
+      approvaldate, state, applyemail)
+    values (#{institutionsid,jdbcType=INTEGER}, #{regionid,jdbcType=INTEGER}, #{institutionsname,jdbcType=VARCHAR}, 
+      #{institutionscode,jdbcType=VARCHAR}, #{responsible,jdbcType=VARCHAR}, #{telephone,jdbcType=VARCHAR}, 
+      #{address,jdbcType=VARCHAR}, #{employeecount,jdbcType=INTEGER}, #{applydate,jdbcType=TIMESTAMP}, 
+      #{approvaldate,jdbcType=TIMESTAMP}, #{state,jdbcType=INTEGER}, #{applyemail,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jmr.model.Institutions">
+    insert into t_institutions
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="institutionsid != null">
+        institutionsid,
+      </if>
+      <if test="regionid != null">
+        regionid,
+      </if>
+      <if test="institutionsname != null">
+        institutionsname,
+      </if>
+      <if test="institutionscode != null">
+        institutionscode,
+      </if>
+      <if test="responsible != null">
+        responsible,
+      </if>
+      <if test="telephone != null">
+        telephone,
+      </if>
+      <if test="address != null">
+        address,
+      </if>
+      <if test="employeecount != null">
+        employeecount,
+      </if>
+      <if test="applydate != null">
+        applydate,
+      </if>
+      <if test="approvaldate != null">
+        approvaldate,
+      </if>
+      <if test="state != null">
+        state,
+      </if>
+      <if test="applyemail != null">
+        applyemail,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="institutionsid != null">
+        #{institutionsid,jdbcType=INTEGER},
+      </if>
+      <if test="regionid != null">
+        #{regionid,jdbcType=INTEGER},
+      </if>
+      <if test="institutionsname != null">
+        #{institutionsname,jdbcType=VARCHAR},
+      </if>
+      <if test="institutionscode != null">
+        #{institutionscode,jdbcType=VARCHAR},
+      </if>
+      <if test="responsible != null">
+        #{responsible,jdbcType=VARCHAR},
+      </if>
+      <if test="telephone != null">
+        #{telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="employeecount != null">
+        #{employeecount,jdbcType=INTEGER},
+      </if>
+      <if test="applydate != null">
+        #{applydate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="approvaldate != null">
+        #{approvaldate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=INTEGER},
+      </if>
+      <if test="applyemail != null">
+        #{applyemail,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jmr.model.Institutions">
+    update t_institutions
+    <set>
+      <if test="regionid != null">
+        regionid = #{regionid,jdbcType=INTEGER},
+      </if>
+      <if test="institutionsname != null">
+        institutionsname = #{institutionsname,jdbcType=VARCHAR},
+      </if>
+      <if test="institutionscode != null">
+        institutionscode = #{institutionscode,jdbcType=VARCHAR},
+      </if>
+      <if test="responsible != null">
+        responsible = #{responsible,jdbcType=VARCHAR},
+      </if>
+      <if test="telephone != null">
+        telephone = #{telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="employeecount != null">
+        employeecount = #{employeecount,jdbcType=INTEGER},
+      </if>
+      <if test="applydate != null">
+        applydate = #{applydate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="approvaldate != null">
+        approvaldate = #{approvaldate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="state != null">
+        state = #{state,jdbcType=INTEGER},
+      </if>
+    </set>
+    where institutionsid = #{institutionsid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jmr.model.Institutions">
+    update t_institutions
+    set regionid = #{regionid,jdbcType=INTEGER},
+      institutionsname = #{institutionsname,jdbcType=VARCHAR},
+      institutionscode = #{institutionscode,jdbcType=VARCHAR},
+      responsible = #{responsible,jdbcType=VARCHAR},
+      telephone = #{telephone,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      employeecount = #{employeecount,jdbcType=INTEGER},
+      applydate = #{applydate,jdbcType=TIMESTAMP},
+      approvaldate = #{approvaldate,jdbcType=TIMESTAMP},
+      state = #{state,jdbcType=INTEGER}
+    where institutionsid = #{institutionsid,jdbcType=INTEGER}
+  </update>
+  <update id="softDelete">
+    update t_institutions
+    set isdeleted = 1
+    where institutionsid = #{institutionsid,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jmr.IDao.RegionMapper">
+  <resultMap id="BaseResultMap" type="com.jmr.model.Region">
+    <id column="regionid" jdbcType="INTEGER" property="regionid" />
+    <result column="regionname" jdbcType="VARCHAR" property="regionname" />
+    <result column="parentregion" jdbcType="INTEGER" property="parentregion" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    regionid, regionname, parentregion
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_region
+    where regionid = #{regionid,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_region
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_region
+    where regionid = #{regionid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.jmr.model.Region">
+    insert into t_region (regionid, regionname, parentregion
+      )
+    values (#{regionid,jdbcType=INTEGER}, #{regionname,jdbcType=VARCHAR}, #{parentregion,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.jmr.model.Region">
+    insert into t_region
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="regionid != null">
+        regionid,
+      </if>
+      <if test="regionname != null">
+        regionname,
+      </if>
+      <if test="parentregion != null">
+        parentregion,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="regionid != null">
+        #{regionid,jdbcType=INTEGER},
+      </if>
+      <if test="regionname != null">
+        #{regionname,jdbcType=VARCHAR},
+      </if>
+      <if test="parentregion != null">
+        #{parentregion,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jmr.model.Region">
+    update t_region
+    <set>
+      <if test="regionname != null">
+        regionname = #{regionname,jdbcType=VARCHAR},
+      </if>
+      <if test="parentregion != null">
+        parentregion = #{parentregion,jdbcType=INTEGER},
+      </if>
+    </set>
+    where regionid = #{regionid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jmr.model.Region">
+    update t_region
+    set regionname = #{regionname,jdbcType=VARCHAR},
+      parentregion = #{parentregion,jdbcType=INTEGER}
+    where regionid = #{regionid,jdbcType=INTEGER}
+  </update>
+</mapper>
